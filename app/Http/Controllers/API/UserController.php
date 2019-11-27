@@ -30,18 +30,21 @@ class UserController extends Controller
 	           'data' => 'Validation Error.',
 	           'message' => $validator->errors()
 	       ];
-	       return response()->json($response, 404);
+	       return response()->json($response, 422);
 	   }
 
 	   $input = $request->all();
 	   $input['password'] = bcrypt($input['password']);
 	   $user = User::create($input);
 	   $success['token'] = $user->createToken('MyApp')->accessToken;
-	   $success['name'] = $user->name;
+		 $success['name'] = $user->name;
+		 
+		 $user = User::find($user->id);
 
 	   $response = [
 	       'success' => true,
-	       'data' => $success,
+				 'data' => $success,
+				 'user' => $user,
 	       'message' => 'User register successfully.'
 	   ];
 
@@ -57,9 +60,9 @@ class UserController extends Controller
 	{
 	   if (Auth::attempt(['email' => request('email'), 'password' => request('password')])) {
 	       $user = Auth::user();
-	       $success['token'] = $user->createToken('MyApp')->accessToken;
+				 $success['token'] = $user->createToken('MyApp')->accessToken;
 
-	       return response()->json(['success' => $success], 200);
+	       return response()->json(['success' => $success, 'user' => $user], 200);
 	   } else {
 	       return response()->json(['error' => 'Unauthorised'], 401);
 	   }
