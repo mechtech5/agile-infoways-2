@@ -40,8 +40,7 @@ class ArticleController extends Controller
       $input = $request->all();
 
       $validator = Validator::make($input, [
-          'title' => 'required',
-          'author' => 'required'
+          'title' => 'required'
       ]);
 
       if ($validator->fails()) {
@@ -109,8 +108,7 @@ class ArticleController extends Controller
       $input = $request->all();
 
       $validator = Validator::make($input, [
-          'title' => 'required',
-          'author' => 'required'
+          'title' => 'required'
       ]);
 
       if ($validator->fails()) {
