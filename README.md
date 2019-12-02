@@ -1,3 +1,5 @@
+API Login and Register with Vue Components
+
 git clone
 composer install
 npm install && npm run dev
